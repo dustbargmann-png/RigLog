@@ -1,5 +1,7 @@
 "use client";
 
+import { SubmitButton } from "@/components/submit-button";
+
 export function DeleteTemplateButton({ action }: { action: () => void }) {
   return (
     <form
@@ -8,12 +10,9 @@ export function DeleteTemplateButton({ action }: { action: () => void }) {
         if (!confirm("Delete this checklist template? This can't be undone.")) e.preventDefault();
       }}
     >
-      <button
-        type="submit"
-        className="min-h-11 w-full rounded-md border border-red-200 px-4 py-2 text-sm font-semibold text-red-600 active:bg-red-50"
-      >
+      <SubmitButton className="min-h-11 w-full rounded-md border border-red-200 px-4 py-2 text-sm font-semibold text-red-600 active:bg-red-50">
         Delete template
-      </button>
+      </SubmitButton>
     </form>
   );
 }

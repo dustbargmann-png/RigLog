@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { SubmitButton } from "@/components/submit-button";
 import { signup } from "./actions";
 
 export default async function SignupPage({
@@ -56,17 +57,14 @@ export default async function SignupPage({
           />
         </label>
 
-        <button
-          type="submit"
-          className="min-h-12 rounded-md bg-blue-600 px-4 text-base font-semibold text-white active:bg-blue-700"
-        >
+        <SubmitButton className="min-h-12 rounded-md bg-navy-700 px-4 text-base font-semibold text-white active:bg-navy-800">
           Create account
-        </button>
+        </SubmitButton>
       </form>
 
       <p className="text-center text-sm text-gray-600">
         Already have an account?{" "}
-        <Link href="/login" className="font-medium text-blue-600">
+        <Link href="/login" className="font-medium text-navy-700">
           Log in
         </Link>
       </p>

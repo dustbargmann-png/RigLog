@@ -79,7 +79,7 @@ export default async function UnitDetailPage({
         <div>
           <h1 className="text-xl font-bold">{unit.label}</h1>
           {unit.unit_type && (
-            <span className="mb-1 mt-1 inline-block rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700">
+            <span className="mb-1 mt-1 inline-block rounded-full bg-navy-50 px-2 py-0.5 text-xs font-medium text-navy-700">
               {unit.unit_type}
             </span>
           )}
@@ -127,7 +127,7 @@ export default async function UnitDetailPage({
           <h2 className="font-semibold">Equipment inventory</h2>
           <Link
             href={`/units/${unit.id}/inventory/new`}
-            className="min-h-11 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white active:bg-blue-700"
+            className="min-h-11 rounded-md bg-navy-700 px-4 py-2 text-sm font-semibold text-white active:bg-navy-800"
           >
             + Add item
           </Link>
@@ -184,7 +184,7 @@ export default async function UnitDetailPage({
             </Link>
             <Link
               href={`/units/${unit.id}/inspect`}
-              className="min-h-11 rounded-md bg-blue-600 px-3 py-2 text-sm font-semibold text-white active:bg-blue-700"
+              className="min-h-11 rounded-md bg-navy-700 px-3 py-2 text-sm font-semibold text-white active:bg-navy-800"
             >
               Run checklist
             </Link>

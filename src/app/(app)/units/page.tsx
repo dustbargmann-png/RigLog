@@ -16,7 +16,7 @@ export default async function UnitsPage() {
         <h1 className="text-xl font-bold">Units</h1>
         <Link
           href="/units/new"
-          className="min-h-11 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white active:bg-blue-700"
+          className="min-h-11 rounded-md bg-navy-700 px-4 py-2 text-sm font-semibold text-white active:bg-navy-800"
         >
           + New unit
         </Link>
@@ -47,7 +47,7 @@ export default async function UnitsPage() {
               <div className="min-w-0">
                 <p className="truncate font-semibold">{unit.label}</p>
                 {unit.unit_type && (
-                  <span className="mb-1 inline-block rounded-full bg-blue-50 px-2 py-0.5 text-xs font-medium text-blue-700">
+                  <span className="mb-1 inline-block rounded-full bg-navy-50 px-2 py-0.5 text-xs font-medium text-navy-700">
                     {unit.unit_type}
                   </span>
                 )}

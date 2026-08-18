@@ -47,7 +47,7 @@ export default async function PickTemplatePage({
               </div>
               <span
                 className={`flex-shrink-0 rounded-full px-2 py-0.5 text-xs font-medium ${
-                  t.company_id ? "bg-purple-50 text-purple-700" : "bg-gray-100 text-gray-600"
+                  t.company_id ? "bg-gold-50 text-gold-700" : "bg-gray-100 text-gray-600"
                 }`}
               >
                 {t.company_id ? "Custom" : "Global"}

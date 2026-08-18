@@ -1,4 +1,5 @@
 import type { Unit } from "@/lib/types";
+import { SubmitButton } from "@/components/submit-button";
 
 export function UnitForm({
   action,
@@ -109,12 +110,9 @@ export function UnitForm({
         />
       </label>
 
-      <button
-        type="submit"
-        className="min-h-12 rounded-md bg-blue-600 px-4 text-base font-semibold text-white active:bg-blue-700"
-      >
+      <SubmitButton className="min-h-12 rounded-md bg-navy-700 px-4 text-base font-semibold text-white active:bg-navy-800">
         {submitLabel}
-      </button>
+      </SubmitButton>
     </form>
   );
 }

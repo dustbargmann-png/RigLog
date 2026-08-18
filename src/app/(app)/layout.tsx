@@ -2,6 +2,7 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import { getCurrentUser } from "@/lib/current-user";
 import { logout } from "@/app/logout/actions";
+import { BottomNav } from "./bottom-nav";
 
 export default async function AppLayout({ children }: { children: React.ReactNode }) {
   const user = await getCurrentUser();
@@ -12,44 +13,28 @@ export default async function AppLayout({ children }: { children: React.ReactNod
 
   return (
     <div className="flex min-h-screen flex-col">
-      <header className="border-b border-gray-200 bg-white">
+      <header className="bg-navy-800">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
-          <Link href="/" className="text-lg font-bold">
-            RigLog
+          <Link href="/" className="flex items-baseline gap-1 text-lg font-bold text-white">
+            Rig<span className="text-gold-400">Log</span>
           </Link>
-          <span className="hidden text-sm text-gray-500 sm:inline">{user.companyName}</span>
+          <div className="flex items-center gap-3">
+            <span className="hidden text-sm text-navy-200 sm:inline">{user.companyName}</span>
+            <form action={logout}>
+              <button
+                type="submit"
+                className="min-h-8 rounded-md px-2 text-sm font-medium text-navy-200 active:bg-navy-700"
+              >
+                Log out
+              </button>
+            </form>
+          </div>
         </div>
-        <nav className="mx-auto flex max-w-4xl gap-1 px-2 pb-2">
-          <Link
-            href="/"
-            className="min-h-11 flex-1 rounded-md px-3 py-2 text-center text-sm font-medium text-gray-700 active:bg-gray-100"
-          >
-            Dashboard
-          </Link>
-          <Link
-            href="/units"
-            className="min-h-11 flex-1 rounded-md px-3 py-2 text-center text-sm font-medium text-gray-700 active:bg-gray-100"
-          >
-            Units
-          </Link>
-          <Link
-            href="/checklists"
-            className="min-h-11 flex-1 rounded-md px-3 py-2 text-center text-sm font-medium text-gray-700 active:bg-gray-100"
-          >
-            Checklists
-          </Link>
-          <form action={logout}>
-            <button
-              type="submit"
-              className="min-h-11 rounded-md px-3 py-2 text-sm font-medium text-gray-500 active:bg-gray-100"
-            >
-              Log out
-            </button>
-          </form>
-        </nav>
       </header>
 
-      <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-6">{children}</main>
+      <main className="mx-auto w-full max-w-4xl flex-1 px-4 py-6 pb-24">{children}</main>
+
+      <BottomNav />
     </div>
   );
 }

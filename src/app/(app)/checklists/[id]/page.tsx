@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { createClient } from "@/lib/supabase/server";
 import { getCurrentUser } from "@/lib/current-user";
+import { SubmitButton } from "@/components/submit-button";
 import type { ChecklistItem, ChecklistTemplate } from "@/lib/types";
 import {
   addChecklistItem,
@@ -92,12 +93,9 @@ export default async function TemplateDetailPage({
               />
             </label>
           </div>
-          <button
-            type="submit"
-            className="min-h-11 self-start rounded-md border border-gray-300 px-4 py-2 text-sm font-semibold active:bg-gray-100"
-          >
+          <SubmitButton className="min-h-11 self-start rounded-md border border-gray-300 px-4 py-2 text-sm font-semibold active:bg-gray-100">
             Save details
-          </button>
+          </SubmitButton>
         </form>
       ) : (
         <div>
@@ -109,12 +107,9 @@ export default async function TemplateDetailPage({
               </p>
             </div>
             <form action={forkThisTemplate}>
-              <button
-                type="submit"
-                className="min-h-11 flex-shrink-0 rounded-md bg-blue-600 px-4 py-2 text-sm font-semibold text-white active:bg-blue-700"
-              >
+              <SubmitButton className="min-h-11 flex-shrink-0 rounded-md bg-navy-700 px-4 py-2 text-sm font-semibold text-white active:bg-navy-800">
                 Fork to customize
-              </button>
+              </SubmitButton>
             </form>
           </div>
           <p className="mt-1 text-xs text-gray-500">
@@ -158,12 +153,9 @@ export default async function TemplateDetailPage({
                     Required
                   </label>
                   <div className="flex gap-2">
-                    <button
-                      type="submit"
-                      className="min-h-11 rounded-md border border-gray-300 px-3 text-sm font-semibold active:bg-gray-100"
-                    >
+                    <SubmitButton className="min-h-11 rounded-md border border-gray-300 px-3 text-sm font-semibold active:bg-gray-100">
                       Save
-                    </button>
+                    </SubmitButton>
                   </div>
                   <DeleteChecklistItemButton
                     action={deleteChecklistItem.bind(null, template.id, item.id)}
@@ -211,12 +203,9 @@ export default async function TemplateDetailPage({
               <input type="checkbox" name="is_required" defaultChecked />
               Required
             </label>
-            <button
-              type="submit"
-              className="min-h-11 rounded-md bg-blue-600 px-4 text-sm font-semibold text-white active:bg-blue-700"
-            >
+            <SubmitButton className="min-h-11 rounded-md bg-navy-700 px-4 text-sm font-semibold text-white active:bg-navy-800">
               Add item
-            </button>
+            </SubmitButton>
           </form>
         )}
       </div>

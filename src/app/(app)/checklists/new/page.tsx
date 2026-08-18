@@ -1,3 +1,4 @@
+import { SubmitButton } from "@/components/submit-button";
 import { createTemplate } from "../actions";
 
 export default async function NewTemplatePage({
@@ -46,12 +47,9 @@ export default async function NewTemplatePage({
           />
         </label>
 
-        <button
-          type="submit"
-          className="min-h-12 rounded-md bg-blue-600 px-4 text-base font-semibold text-white active:bg-blue-700"
-        >
+        <SubmitButton className="min-h-12 rounded-md bg-navy-700 px-4 text-base font-semibold text-white active:bg-navy-800">
           Create template
-        </button>
+        </SubmitButton>
       </form>
     </div>
   );
