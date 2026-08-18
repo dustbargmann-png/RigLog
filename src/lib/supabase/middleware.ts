@@ -4,6 +4,11 @@ import { NextResponse, type NextRequest } from "next/server";
 const PUBLIC_PATHS = ["/login", "/signup"];
 
 export async function updateSession(request: NextRequest) {
+  // TEMP: bypass auth entirely for the env diagnostic route (auth itself is broken).
+  if (request.nextUrl.pathname.startsWith("/debug-env")) {
+    return NextResponse.next({ request });
+  }
+
   let response = NextResponse.next({ request });
 
   const supabase = createServerClient(
