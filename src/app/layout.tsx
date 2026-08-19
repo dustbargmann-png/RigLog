@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -15,6 +15,14 @@ const geistMono = Geist_Mono({
 export const metadata: Metadata = {
   title: "RigLog",
   description: "Compliance checklists, equipment inventory, and service logs for mobile trailer fleets.",
+  appleWebApp: {
+    title: "RigLog",
+    statusBarStyle: "black-translucent",
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#17324a",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
