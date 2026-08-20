@@ -94,7 +94,13 @@ export async function deleteInventoryItem(unitId: string, itemId: string) {
   if (!user) redirect("/login");
 
   const supabase = await createClient();
-  await supabase.from("inventory_items").delete().eq("id", itemId);
+  const { error } = await supabase.from("inventory_items").delete().eq("id", itemId);
+
+  if (error) {
+    redirect(
+      `/units/${unitId}/inventory/${itemId}/edit?error=${encodeURIComponent(error.message)}`,
+    );
+  }
 
   revalidatePath(`/units/${unitId}`);
   redirect(`/units/${unitId}`);

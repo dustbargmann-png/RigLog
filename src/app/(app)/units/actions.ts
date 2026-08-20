@@ -54,7 +54,12 @@ export async function createUnit(formData: FormData) {
   }
 
   if (user.role !== "admin") {
-    await supabase.from("unit_assignments").insert({ unit_id: unit.id, user_id: user.id });
+    const { error: assignError } = await supabase
+      .from("unit_assignments")
+      .insert({ unit_id: unit.id, user_id: user.id });
+    if (assignError) {
+      redirect(`/units/${unit.id}?error=${encodeURIComponent(assignError.message)}`);
+    }
   }
 
   const photoUrl = await uploadPhotoIfPresent(supabase, user.companyId, unit.id, formData);
@@ -103,7 +108,11 @@ export async function deleteUnit(unitId: string) {
   if (!user) redirect("/login");
 
   const supabase = await createClient();
-  await supabase.from("units").delete().eq("id", unitId);
+  const { error } = await supabase.from("units").delete().eq("id", unitId);
+
+  if (error) {
+    redirect(`/units/${unitId}?error=${encodeURIComponent(error.message)}`);
+  }
 
   revalidatePath("/units");
   redirect("/units");

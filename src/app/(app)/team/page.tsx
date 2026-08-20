@@ -12,7 +12,12 @@ type TeamMember = {
   role: "admin" | "technician";
 };
 
-export default async function TeamPage() {
+export default async function TeamPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ error?: string }>;
+}) {
+  const { error } = await searchParams;
   const user = await getCurrentUser();
   if (!user) return null;
 
@@ -44,6 +49,10 @@ export default async function TeamPage() {
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-xl font-bold">Team</h1>
+
+      {error && (
+        <p className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
+      )}
 
       <div className="flex flex-col gap-2 rounded-lg border border-gray-200 bg-white p-4">
         <p className="text-sm font-medium">Invite a technician</p>

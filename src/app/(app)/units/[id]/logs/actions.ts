@@ -75,9 +75,12 @@ export async function createInspectionLog(unitId: string, templateId: string, fo
 
   const photoUrls = await uploadPhotos(supabase, user.companyId, unitId, log.id, formData);
   if (photoUrls.length > 0) {
-    await supabase
+    const { error: photosError } = await supabase
       .from("inspection_log_photos")
       .insert(photoUrls.map((photo_url) => ({ inspection_log_id: log.id, photo_url })));
+    if (photosError) {
+      redirect(`/units/${unitId}/logs/${log.id}?error=${encodeURIComponent(photosError.message)}`);
+    }
   }
 
   revalidatePath(`/units/${unitId}`);
@@ -112,9 +115,12 @@ export async function createServiceLog(unitId: string, formData: FormData) {
 
   const photoUrls = await uploadPhotos(supabase, user.companyId, unitId, log.id, formData);
   if (photoUrls.length > 0) {
-    await supabase
+    const { error: photosError } = await supabase
       .from("inspection_log_photos")
       .insert(photoUrls.map((photo_url) => ({ inspection_log_id: log.id, photo_url })));
+    if (photosError) {
+      redirect(`/units/${unitId}/logs/${log.id}?error=${encodeURIComponent(photosError.message)}`);
+    }
   }
 
   revalidatePath(`/units/${unitId}`);
@@ -126,7 +132,11 @@ export async function deleteLog(unitId: string, logId: string) {
   if (!user) redirect("/login");
 
   const supabase = await createClient();
-  await supabase.from("inspection_logs").delete().eq("id", logId);
+  const { error } = await supabase.from("inspection_logs").delete().eq("id", logId);
+
+  if (error) {
+    redirect(`/units/${unitId}/logs/${logId}?error=${encodeURIComponent(error.message)}`);
+  }
 
   revalidatePath(`/units/${unitId}`);
   redirect(`/units/${unitId}`);

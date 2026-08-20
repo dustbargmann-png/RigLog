@@ -6,10 +6,13 @@ import { saveUnitAssignments } from "../actions";
 
 export default async function ManageAccessPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ userId: string }>;
+  searchParams: Promise<{ error?: string }>;
 }) {
   const { userId } = await params;
+  const { error } = await searchParams;
   const user = await getCurrentUser();
   if (!user) return null;
 
@@ -43,6 +46,10 @@ export default async function ManageAccessPage({
           Pick which units {technician.name} can see and work on.
         </p>
       </div>
+
+      {error && (
+        <p className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
+      )}
 
       <form action={submitAssignments} className="flex flex-col gap-4">
         {!units || units.length === 0 ? (

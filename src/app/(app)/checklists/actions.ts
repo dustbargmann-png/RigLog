@@ -61,7 +61,11 @@ export async function deleteTemplate(templateId: string) {
   if (!user) redirect("/login");
 
   const supabase = await createClient();
-  await supabase.from("checklist_templates").delete().eq("id", templateId);
+  const { error } = await supabase.from("checklist_templates").delete().eq("id", templateId);
+
+  if (error) {
+    redirect(`/checklists/${templateId}?error=${encodeURIComponent(error.message)}`);
+  }
 
   revalidatePath("/checklists");
   redirect("/checklists");
@@ -104,7 +108,7 @@ export async function forkTemplate(templateId: string) {
   }
 
   if (sourceItems && sourceItems.length > 0) {
-    await supabase.from("checklist_items").insert(
+    const { error: itemsError } = await supabase.from("checklist_items").insert(
       sourceItems.map((item) => ({
         template_id: fork.id,
         label: item.label,
@@ -113,6 +117,9 @@ export async function forkTemplate(templateId: string) {
         is_required: item.is_required,
       })),
     );
+    if (itemsError) {
+      redirect(`/checklists/${fork.id}?error=${encodeURIComponent(itemsError.message)}`);
+    }
   }
 
   revalidatePath("/checklists");
@@ -179,7 +186,11 @@ export async function deleteChecklistItem(templateId: string, itemId: string) {
   if (!user) redirect("/login");
 
   const supabase = await createClient();
-  await supabase.from("checklist_items").delete().eq("id", itemId);
+  const { error } = await supabase.from("checklist_items").delete().eq("id", itemId);
+
+  if (error) {
+    redirect(`/checklists/${templateId}?error=${encodeURIComponent(error.message)}`);
+  }
 
   revalidatePath(`/checklists/${templateId}`);
   redirect(`/checklists/${templateId}`);

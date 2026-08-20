@@ -40,10 +40,13 @@ function one<T>(rel: T | T[] | null): T | null {
 
 export default async function LogDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string; logId: string }>;
+  searchParams: Promise<{ error?: string }>;
 }) {
   const { id: unitId, logId } = await params;
+  const { error } = await searchParams;
   const supabase = await createClient();
 
   const { data: log } = await supabase
@@ -94,6 +97,10 @@ export default async function LogDetailPage({
 
   return (
     <div className="flex flex-col gap-4">
+      {error && (
+        <p className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
+      )}
+
       <div>
         <h1 className="text-xl font-bold">
           {template ? template.name : inventoryItem ? `Service: ${inventoryItem.name}` : "Service log"}

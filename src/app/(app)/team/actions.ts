@@ -14,7 +14,14 @@ export async function regenerateInviteCode() {
   const supabase = await createClient();
   const newCode = randomBytes(6).toString("hex");
 
-  await supabase.from("companies").update({ invite_code: newCode }).eq("id", user.companyId);
+  const { error } = await supabase
+    .from("companies")
+    .update({ invite_code: newCode })
+    .eq("id", user.companyId);
+
+  if (error) {
+    redirect(`/team?error=${encodeURIComponent(error.message)}`);
+  }
 
   revalidatePath("/team");
   redirect("/team");
@@ -43,10 +50,16 @@ export async function saveUnitAssignments(targetUserId: string, formData: FormDa
     .map((u) => ({ unit_id: u.id, user_id: targetUserId }));
 
   if (toRemove.length > 0) {
-    await supabase.from("unit_assignments").delete().in("id", toRemove);
+    const { error: removeError } = await supabase.from("unit_assignments").delete().in("id", toRemove);
+    if (removeError) {
+      redirect(`/team/${targetUserId}?error=${encodeURIComponent(removeError.message)}`);
+    }
   }
   if (toAdd.length > 0) {
-    await supabase.from("unit_assignments").insert(toAdd);
+    const { error: addError } = await supabase.from("unit_assignments").insert(toAdd);
+    if (addError) {
+      redirect(`/team/${targetUserId}?error=${encodeURIComponent(addError.message)}`);
+    }
   }
 
   revalidatePath(`/team/${targetUserId}`);

@@ -43,10 +43,13 @@ function one<T>(rel: T | T[] | null): T | null {
 
 export default async function UnitDetailPage({
   params,
+  searchParams,
 }: {
   params: Promise<{ id: string }>;
+  searchParams: Promise<{ error?: string }>;
 }) {
   const { id } = await params;
+  const { error } = await searchParams;
   const supabase = await createClient();
 
   const { data: unit } = await supabase
@@ -75,6 +78,10 @@ export default async function UnitDetailPage({
 
   return (
     <div className="flex flex-col gap-4">
+      {error && (
+        <p className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
+      )}
+
       <div className="flex items-start justify-between gap-4">
         <div>
           <h1 className="text-xl font-bold">{unit.label}</h1>
