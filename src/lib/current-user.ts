@@ -29,10 +29,17 @@ export async function getCurrentUser(): Promise<CurrentUser | null> {
     .maybeSingle();
 
   if (!profile) {
-    await supabase.rpc("create_company_and_admin", {
-      company_name: authUser.user_metadata.company_name ?? "My Company",
-      user_name: authUser.user_metadata.name ?? authUser.email,
-    });
+    if (authUser.user_metadata.invite_code) {
+      await supabase.rpc("join_company_with_invite", {
+        invite_code_input: authUser.user_metadata.invite_code,
+        new_user_name: authUser.user_metadata.name ?? authUser.email,
+      });
+    } else {
+      await supabase.rpc("create_company_and_admin", {
+        company_name: authUser.user_metadata.company_name ?? "My Company",
+        user_name: authUser.user_metadata.name ?? authUser.email,
+      });
+    }
 
     ({ data: profile } = await supabase
       .from("users")

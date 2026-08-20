@@ -11,7 +11,7 @@ export default async function LoginPage({
 
   return (
     <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center gap-6 px-4">
-      <h1 className="text-2xl font-bold">Log in to RigLog</h1>
+      <h1 className="text-2xl font-bold">Log in to RigMaintenance</h1>
 
       {error && (
         <p className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>

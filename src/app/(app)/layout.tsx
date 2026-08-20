@@ -16,10 +16,18 @@ export default async function AppLayout({ children }: { children: React.ReactNod
       <header className="bg-navy-800">
         <div className="mx-auto flex max-w-4xl items-center justify-between px-4 py-3">
           <Link href="/" className="flex items-baseline gap-1 text-lg font-bold text-white">
-            Rig<span className="text-gold-400">Log</span>
+            Rig<span className="text-gold-400">Maintenance</span>
           </Link>
           <div className="flex items-center gap-3">
             <span className="hidden text-sm text-navy-200 sm:inline">{user.companyName}</span>
+            {user.role === "admin" && (
+              <Link
+                href="/team"
+                className="min-h-8 rounded-md px-2 text-sm font-medium text-navy-200 active:bg-navy-700"
+              >
+                Team
+              </Link>
+            )}
             <form action={logout}>
               <button
                 type="submit"

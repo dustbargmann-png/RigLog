@@ -13,10 +13,10 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "RigLog",
+  title: "RigMaintenance",
   description: "Compliance checklists, equipment inventory, and service logs for mobile trailer fleets.",
   appleWebApp: {
-    title: "RigLog",
+    title: "RigMaintenance",
     statusBarStyle: "black-translucent",
   },
 };

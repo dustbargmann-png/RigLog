@@ -2,8 +2,8 @@ import type { MetadataRoute } from "next";
 
 export default function manifest(): MetadataRoute.Manifest {
   return {
-    name: "RigLog",
-    short_name: "RigLog",
+    name: "RigMaintenance",
+    short_name: "RigMaint",
     description:
       "Compliance checklists, equipment inventory, and service logs for mobile trailer fleets.",
     start_url: "/",

@@ -37,6 +37,7 @@ export async function createUnit(formData: FormData) {
     .from("units")
     .insert({
       company_id: user.companyId,
+      created_by: user.id,
       label: formData.get("label") as string,
       unit_type: (formData.get("unit_type") as string) || null,
       make: (formData.get("make") as string) || null,
@@ -50,6 +51,10 @@ export async function createUnit(formData: FormData) {
 
   if (error || !unit) {
     redirect(`/units/new?error=${encodeURIComponent(error?.message ?? "Could not create unit")}`);
+  }
+
+  if (user.role !== "admin") {
+    await supabase.from("unit_assignments").insert({ unit_id: unit.id, user_id: user.id });
   }
 
   const photoUrl = await uploadPhotoIfPresent(supabase, user.companyId, unit.id, formData);
