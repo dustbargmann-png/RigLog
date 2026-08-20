@@ -5,13 +5,17 @@ import { sendResetLink } from "./actions";
 export default async function ForgotPasswordPage({
   searchParams,
 }: {
-  searchParams: Promise<{ sent?: string }>;
+  searchParams: Promise<{ sent?: string; error?: string }>;
 }) {
-  const { sent } = await searchParams;
+  const { sent, error } = await searchParams;
 
   return (
     <main className="mx-auto flex min-h-screen max-w-sm flex-col justify-center gap-6 px-4">
       <h1 className="text-2xl font-bold">Reset your password</h1>
+
+      {error && (
+        <p className="rounded-md bg-red-50 px-4 py-3 text-sm text-red-700">{error}</p>
+      )}
 
       {sent ? (
         <p className="rounded-md bg-green-50 px-4 py-3 text-sm text-green-700">
